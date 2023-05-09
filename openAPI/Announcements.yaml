@@ -1,0 +1,103 @@
+openapi: "3.0.0"
+info:
+  title: Announcements API
+  description: CRUD operations for managing announcements
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/announcements:
+    get:
+      summary: Retrieve all announcements
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create a new announcement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                time:
+                  type: string
+                  format: time
+                  example: "09:00:00"
+                description:
+                  type: string
+                  example: "Important announcement"
+                byUser:
+                  type: string
+                  example: "John Doe"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    put:
+      summary: Update an existing announcement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                time:
+                  type: string
+                  format: time
+                  example: "10:00:00"
+                description:
+                  type: string
+                  example: "Updated important announcement"
+                byUser:
+                  type: string
+                  example: "Jane Smith"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete an announcement
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            example: "00000000-0000-0000-0000-000000000001"
+          required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found

@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: User Login and Registration API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /users/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john@example.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+              required:
+                - email
+                - password
+      responses:
+        '201':
+          description: User successfully registered
+        '400':
+          description: Invalid request body
+        '409':
+          description: Email already exists
+  /users/login:
+    post:
+      summary: Authenticate user and generate JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: john@example.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: User authenticated and JWT token generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    # trunk-ignore(gitleaks/jwt)
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '401':
+          description: Unauthorized, invalid email or password
+        '400':
+          description: Invalid request body

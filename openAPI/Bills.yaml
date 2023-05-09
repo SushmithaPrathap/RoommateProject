@@ -1,0 +1,127 @@
+openapi: "3.0.0"
+info:
+  title: Bills API
+  description: CRUD operations for managing bills
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/bills:
+    get:
+      summary: Retrieve all bills
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create a new bill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                billNumber:
+                  type: string
+                  example: "1001"
+                billtype:
+                  type: string
+                  example: "Electricity"
+                amount:
+                  type: number
+                  example: 500.00
+                paid:
+                  type: boolean
+                  example: false
+                provider:
+                  type: string
+                  example: "ABC Electricity Company"
+                billdate:
+                  type: string
+                  format: date
+                  example: "2023-04-01"
+                dateadded:
+                  type: string
+                  format: date-time
+                  example: "2023-04-02T09:00:00Z"
+                comments:
+                  type: string
+                  example: "This is the first electricity bill of the year"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    put:
+      summary: Update an existing bill
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                billNumber:
+                  type: string
+                  example: "1002"
+                billtype:
+                  type: string
+                  example: "Water"
+                amount:
+                  type: number
+                  example: 250.00
+                paid:
+                  type: boolean
+                  example: true
+                provider:
+                  type: string
+                  example: "XYZ Water Company"
+                billdate:
+                  type: string
+                  format: date
+                  example: "2023-04-01"
+                dateadded:
+                  type: string
+                  format: date-time
+                  example: "2023-04-02T10:00:00Z"
+                comments:
+                  type: string
+                  example: "This is the second water bill of the year"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a bill
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            example: "00000000-0000-0000-0000-000000000001"
+          required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found

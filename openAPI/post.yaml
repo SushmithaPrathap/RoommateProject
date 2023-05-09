@@ -1,0 +1,86 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Post API"
+  description: "API for managing posts."
+
+paths:
+  /api/v1/post:
+    get:
+      summary: "Get all posts"
+      description: "Returns a list of all posts."
+      responses:
+        200:
+          description: "List of posts."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+    post:
+      summary: "Create a new post"
+      description: "Creates a new post."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        201:
+          description: "Post created."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    put:
+      summary: "Update an existing post"
+      description: "Updates an existing post."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        200:
+          description: "Post updated."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    delete:
+      summary: "Delete an existing post"
+      description: "Deletes an existing post."
+      responses:
+        204:
+          description: "Post deleted."
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: "Unique identifier for the post."
+        houseID:
+          type: string
+          description: "ID of the house the post belongs to."
+        by:
+          type: string
+          description: "Name of the author of the post."
+        dateTime:
+          type: string
+          format: "date-time"
+          description: "Date and time the post was created."
+        description:
+          type: string
+          description: "Description of the post."
+      required:
+        - uuid
+        - houseID
+        - by
+        - dateTime
+        - description

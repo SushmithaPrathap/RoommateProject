@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: House Information API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /houses:
+    get:
+      summary: Get all houses
+      responses:
+        '200':
+          description: Houses retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/House'
+    post:
+      summary: Create a new house
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewHouse'
+      responses:
+        '201':
+          description: House created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+  /houses/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: House ID
+    get:
+      summary: Get house information by ID
+      responses:
+        '200':
+          description: House information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+        '404':
+          description: House not found
+    put:
+      summary: Update house information by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/House'
+      responses:
+        '200':
+          description: House information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+        '404':
+          description: House not found
+    patch:
+      summary: Update selected fields of house information by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HouseUpdate'
+      responses:
+        '200':
+          description: House information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+        '404':
+          description: House not found
+    delete:
+      summary: Delete house information by ID
+      responses:
+        '204':
+          description: House information deleted successfully
+components:
+  schemas:
+    House:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440000
+        name:
+          type: string
+          example: Acme House
+        address:
+          type: string
+          example: 123 Main St
+        pincode:
+          type: string
+          example: 123456
+        maxMembers:
+          type: integer
+          example: 6
+        memberCount:
+          type: integer
+          example: 4
+        adminID:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440001
+        code:
+          type: string
+          example: ABCD1234
+        rent:
+          type: number
+          format: double
+          example: 2500.00
+      required:
+        - name
+        - address
+    NewHouse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme House
+        address:
+          type: string
+          example: 123 Main St
+        pincode:
+          type: string
+          example: 123456
+        maxMembers:
+          type: integer
+          example: 6
+        adminID:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440001
+        code:
+          type: string
+          example: ABCD1234
+        rent:
+          type: number
+          format: double
+          example: 2500.00
+      required:
+        - name
+        - address
+    HouseUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Acme House
+        address:
+          type: string
+          example: 123 Main St
+        pincode:
+          type: string
+          example: 123456
+        maxMembers:
+          type: integer
+          example: 6
+        adminID:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440001
+        code:
+          type: string
+          example: ABCD1234
+        rent:
+          type: number
+          format: double
+          example: 2500.00
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: House not found

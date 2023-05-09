@@ -1,0 +1,137 @@
+openapi: "3.0.0"
+info:
+  title: Parking API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+paths:
+  /parking:
+    post:
+      summary: Create a new parking entry
+      operationId: createParking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                houseid:
+                  type: integer
+                by:
+                  type: string
+                datetime:
+                  type: string
+                  format: date-time
+                description:
+                  type: string
+            example:
+              uuid: 1234567890
+              houseid: 123
+              by: John Doe
+              datetime: 2023-04-02T15:30:00Z
+              description: Parked car in garage
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  houseid:
+                    type: integer
+                  by:
+                    type: string
+                  datetime:
+                    type: string
+                    format: date-time
+                  description:
+                    type: string
+              example:
+                uuid: 1234567890
+                houseid: 123
+                by: John Doe
+                datetime: 2023-04-02T15:30:00Z
+                description: Parked car in garage
+    get:
+      summary: Get a list of parking entries
+      operationId: listParking
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                    houseid:
+                      type: integer
+                    by:
+                      type: string
+                    datetime:
+                      type: string
+                      format: date-time
+                    description:
+                      type: string
+                  example:
+                    uuid: 1234567890
+                    houseid: 123
+                    by: John Doe
+                    datetime: 2023-04-02T15:30:00Z
+                    description: Parked car in garage
+    delete:
+      summary: Delete all parking entries
+      operationId: deleteAllParking
+      responses:
+        '204':
+          description: No Content
+  /parking/{uuid}:
+    get:
+      summary: Get a parking entry by UUID
+      operationId: getParking
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+          example: 1234567890
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  houseid:
+                    type: integer
+                  by:
+                    type: string
+                  datetime:
+                    type: string
+                    format: date-time
+                  description:
+                    type: string
+              example:
+                uuid: 1234567890
+                houseid: 123
+                by: John Doe
+                datetime: 2023-04-02T15:30:00Z
+                description: Parked car in garage
+        '404':
+          description: Not Found
+    put:
+      summary: Update a parking entry by UUID
+     

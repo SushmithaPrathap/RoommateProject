@@ -1,0 +1,113 @@
+openapi: "3.0.0"
+info:
+  title: Schedule API
+  description: CRUD operations for managing schedules
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/schedule:
+    get:
+      summary: Retrieve all schedules
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create a new schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                time:
+                  type: string
+                  format: time
+                  example: "09:00:00"
+                description:
+                  type: string
+                  example: "Meeting with clients"
+                fromDate:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                toDate:
+                  type: string
+                  format: date
+                  example: "2023-04-03"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    put:
+      summary: Update an existing schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                date:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                time:
+                  type: string
+                  format: time
+                  example: "10:00:00"
+                description:
+                  type: string
+                  example: "Updated meeting with clients"
+                fromDate:
+                  type: string
+                  format: date
+                  example: "2023-04-02"
+                toDate:
+                  type: string
+                  format: date
+                  example: "2023-04-03"
+                houseID:
+                  type: string
+                  example: "12345"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a schedule
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            example: "00000000-0000-0000-0000-000000000001"
+          required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found

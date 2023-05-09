@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  title: User Information API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: User ID
+    get:
+      summary: Get user information by ID
+      responses:
+        '200':
+          description: User information returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: 123e4567-e89b-12d3-a456-426655440000
+                  firstname:
+                    type: string
+                    example: John
+                  lastname:
+                    type: string
+                    example: Doe
+                  email:
+                    type: string
+                    format: email
+                    example: john@example.com
+                  houseID:
+                    type: string
+                    format: uuid
+                    example: 123e4567-e89b-12d3-a456-426655440001
+        '404':
+          description: User not found

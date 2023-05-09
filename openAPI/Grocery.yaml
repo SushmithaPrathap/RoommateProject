@@ -1,0 +1,91 @@
+openapi: "3.0.0"
+info:
+  title: Grocery API
+  description: CRUD operations for managing grocery lists
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/grocery:
+    get:
+      summary: Retrieve all grocery lists
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Create a new grocery list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                houseID:
+                  type: string
+                  example: "12345"
+                by:
+                  type: string
+                  example: "John Doe"
+                list:
+                  type: array
+                  items:
+                    type: string
+                    example: "Milk"
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+    put:
+      summary: Update an existing grocery list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                  example: "00000000-0000-0000-0000-000000000001"
+                houseID:
+                  type: string
+                  example: "12345"
+                by:
+                  type: string
+                  example: "Jane Smith"
+                list:
+                  type: array
+                  items:
+                    type: string
+                    example: "Bread"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a grocery list
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            example: "00000000-0000-0000-0000-000000000001"
+          required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
