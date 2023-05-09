@@ -34,38 +34,3 @@ The House Management App is a software solution designed to help housemates mana
 7.	As a user, I want to be able to track expenses and payments for shared household items, so that we can easily split costs and avoid disputes over who owes what.
 8.	As a user, I want to be able to view reports and statistics on our household expenses and task completion rates, so that we can identify areas for improvement and make adjustments as needed.
 
-
-### REST API Resources:
-User Resource
-/users: GET, POST, PUT, DELETE
-
-/users/{id}: GET, PUT, DELETE
-
-Authentication Resource
-
-/login: POST
-
-/logout: POST
-
-
-/users/{id}/assigned-tasks: GET
-
-Expenses Resource
-
-/expenses: GET, POST
-
-/reminders/{id}: GET, PUT, DELETE
-
-Shopping list Resource
-
-/shoppinglist: GET, POST
-
-/shoppinglist/{id}: GET, PUT, DELETE
-
-Chore Chart resources
-
-/chorechart: GET, POST
-
-/chorechart/{id}: GET, PUT, DELETE
-
-
